@@ -1,3 +1,6 @@
+MediaConvert
+============
+
 for f in *.mkv; do ffmpeg -i "$f" -c:v copy -c:a aac -strict experimental -ac 2 -b:a 256k -metadata "title=${f%}" "${f%.mkv}.mp4"; rm "$f"; done
 
 for f in *.mkv; do ffmpeg -i "$f" -c:v copy -c:a copy -metadata "title=${f%}" "${f%.mkv}.mp4"; rm "$f"; done
