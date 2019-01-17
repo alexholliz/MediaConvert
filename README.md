@@ -32,20 +32,20 @@ for f in *.mkv; do ffmpeg -i "$f" -c:v copy -c:a aac -strict experimental -ac 2 
 ```
 
 
-# FFMPEG RECURSIVE
+## FFMPEG RECURSIVE
 ```bash
 for f in */*.mkv; do ffmpeg -i "$f" -c:v copy -c:a aac -strict experimental -ac 2 -b:a 256k "${f%.mkv}.mp4"; rm "$f"; done
 ```
 
 
-# FFPROBE
+## FFPROBE
 ```bash
 for f in *.mkv; do ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 "$f"; done
 
 for f in *.mkv; do ffprobe -v error -select_streams a:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 "$f"; done
 ```
 
-# FFPROBE RECURSIVE
+## FFPROBE RECURSIVE
 ```bash
 for f in */*.mkv; do ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 "$f"; done
 
