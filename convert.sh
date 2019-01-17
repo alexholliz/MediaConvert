@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Tell the script not to throw erros if the extension is not found
+#Tell the script not to throw errors if the extension is not found
 shopt -s nullglob 
 
 #for mp4 files specifically in the directories below the cwd
