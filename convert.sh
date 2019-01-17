@@ -26,6 +26,7 @@ for file in */*.{mp4,MP4}; do
 		#ffmpeg call to do the appropriate transcoding, automatically answering yes to overwrite files, and because this is already an mp4 file, don't delete it at the end.
 		ffmpeg -y -i "$file" -c:v libx264 -preset superfast -crf 23 -tune film -b:v 8M -maxrate:v 8M -bufsize:v 8M -c:a aac -strict experimental -ac 2 -b:a 256k -metadata "title=${file%.*}" "${file%.*}.mp4"
 	elif [ "$VTRANSCODE" == 0 ] && [ "$ATRANSCODE" == 1 ]; then
+		#the handy file% arguments say, "hey, get that filename, and delete everything after the period" so we can lose the original file extension
 		ffmpeg -y -i "$file" -c:v copy -c:a aac -strict experimental -ac 2 -b:a 256k -metadata "title=${file%.*}" "${file%.*}.mp4"
 	elif [ "$VTRANSCODE" == 1 ] && [ "$ATRANSCODE" == 0 ]; then
 		ffmpeg -y -i "$file" -c:v libx264 -preset superfast -crf 23 -tune film -b:v 8M -maxrate:v 8M -bufsize:v 8M -c:a copy -metadata "title=${file%}" "${file%}.mp4"
