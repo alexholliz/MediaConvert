@@ -31,6 +31,10 @@ ffmpeg -i -c:v libx264 -preset superfast -crf 23 -tune film -b:v 8M -maxrate:v 8
 for f in *.mkv; do ffmpeg -i "$f" -c:v copy -c:a aac -strict experimental -ac 2 -b:a 256k "${f%.mkv}.mp4"; rm "$f"; done
 ```
 
+## FFMPEG PRESERVE STREAMS
+```bash
+ffmpeg -i input.mkv -map 0 -c:v libx264 -reset superfast -crf 23 -tune film -b:v 8M -maxrate:v 8M -c:a aac -strict experimental -threads 4 -loglevel info -metadata 'title=Some Video' -y somevideo.mp4
+```
 
 ## FFMPEG RECURSIVE
 ```bash
