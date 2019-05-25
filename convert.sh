@@ -38,7 +38,7 @@ for file in */*.{mp4,MP4}; do
 done
 
 #for video files in the directories below the cwd
-for file in */*.{wmv,WMV,mkv,MKV,avi,AVI,m4v,M4V,.ts,.TS}; do
+for file in */*.{wmv,WMV,mkv,MKV,avi,AVI,m4v,M4V,ts,TS,mov,MOV}; do
 
 	VIDEO=$(ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 "$file")
 	AUDIO=$(ffprobe -v error -select_streams a:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 "$file")
