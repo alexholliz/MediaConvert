@@ -8,6 +8,7 @@ for file in *.{mp4,MP4}; do
 	#Use ffprobe to determine if the video and audio stream are h264 and aac
 	VIDEO=$(ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 "$file")
 	AUDIO=$(ffprobe -v error -select_streams a:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 "$file")
+	CHANNELS=$(ffprobe -v error -select_streams a:0 -show_entries stream=channels -of default=noprint_wrappers=1:nokey=1 "$file")
 
 	#set the transcode flags to 0 until they are updated
 	VTRANSCODE=0
@@ -17,7 +18,7 @@ for file in *.{mp4,MP4}; do
 	if [ "$VIDEO" != "h264" ]; then
 		VTRANSCODE=1
 	fi
-	if [ "$AUDIO" != "aac" ]; then
+	if [ "$AUDIO" != "aac" ] || [ "$CHANNELS" != "2" ]; then
 		ATRANSCODE=1
 	fi
 
@@ -42,6 +43,7 @@ for file in *.{wmv,WMV,mkv,MKV,avi,AVI,m4v,M4V,ts,TS,mov,MOV}; do
 
 	VIDEO=$(ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 "$file")
 	AUDIO=$(ffprobe -v error -select_streams a:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 "$file")
+	CHANNELS=$(ffprobe -v error -select_streams a:0 -show_entries stream=channels -of default=noprint_wrappers=1:nokey=1 "$file")
 
 	VTRANSCODE=0
 	ATRANSCODE=0
@@ -49,7 +51,7 @@ for file in *.{wmv,WMV,mkv,MKV,avi,AVI,m4v,M4V,ts,TS,mov,MOV}; do
 	if [ "$VIDEO" != "h264" ]; then
 		VTRANSCODE=1
 	fi
-	if [ "$AUDIO" != "aac" ]; then
+	if [ "$AUDIO" != "aac" ] || [ "$CHANNELS" != "2" ]; then
 		ATRANSCODE=1
 	fi
 	if [ "$VTRANSCODE" == 1 ] && [ "$ATRANSCODE" == 1 ]; then
