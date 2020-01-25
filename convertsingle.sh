@@ -27,7 +27,7 @@ for file in *.{mp4,MP4}; do
 	if [ "$VTRANSCODE" == 1 ] && [ "$ATRANSCODE" == 1 ]; then
 		#ffmpeg call to do the appropriate transcoding, automatically answering yes to overwrite files, and because this is already an mp4 file, don't delete it at the end.
 		mv "$file" "${file%.*}.bak"
-		ffmpeg -y -i "$file" -map 0:v -map 0:a -map -0:s -c:v libx264 -preset superfast -crf 23 -tune film -b:v 8M -maxrate:v 8M -bufsize:v 8M -c:a aac -strict experimental -ac 2 -b:a 256k -metadata "title=${file%.*}" "${file%.*}.mp4" && rm "${file%.*}.bak"
+		ffmpeg -y -i "${file%.*}.bak" -map 0:v -map 0:a -map -0:s -c:v libx264 -preset superfast -crf 23 -tune film -b:v 8M -maxrate:v 8M -bufsize:v 8M -c:a aac -strict experimental -ac 2 -b:a 256k -metadata "title=${file%.*}" "${file%.*}.mp4" && rm "${file%.*}.bak"
 	elif [ "$VTRANSCODE" == 0 ] && [ "$ATRANSCODE" == 1 ]; then
 		#the handy file% arguments say, "hey, get that filename, and delete everything after the period" so we can lose the original file extension
 		mv "$file" "${file%.*}.bak"
